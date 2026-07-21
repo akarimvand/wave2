@@ -14,6 +14,9 @@
     <!-- Local Font Awesome -->
     <link rel="stylesheet" href="<?php echo asset('css/all.min.css'); ?>">
 
+    <!-- UI/UX Enhancements -->
+    <link rel="stylesheet" href="<?php echo asset('css/ui-ux-enhancements.css'); ?>">
+
     <style>
         /* ===== Base Reset ===== */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -553,5 +556,8 @@
     <script src="<?php echo asset('js/jquery.min.js'); ?>"></script>
     <script src="<?php echo asset('js/bootstrap.bundle.min.js'); ?>"></script>
     <script src="<?php echo asset('js/app.js'); ?>"></script>
+    
+    <!-- UI/UX Enhancements -->
+    <script src="<?php echo asset('js/ui-ux-enhancements.js'); ?>"></script>
 </body>
 </html>
