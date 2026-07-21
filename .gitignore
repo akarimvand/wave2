@@ -1,3 +1,1 @@
-(last-update-confirmation.txt is a regular text file that appears to be part of the source code, not a build artifact or temporary file, so no changes to .gitignore are needed)
-
-(empty - output nothing)
+*.html
