@@ -528,6 +528,27 @@ CREATE TABLE `menus` (
     CONSTRAINT `fk_menus_parent` FOREIGN KEY (`parent_id`) REFERENCES `menus` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- ============================================================
+-- 27. sliders — اسلایدرهای نمایشی
+-- ============================================================
+DROP TABLE IF EXISTS `sliders`;
+CREATE TABLE `sliders` (
+    `id`           INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    `title`        VARCHAR(200)  NOT NULL,
+    `description`  TEXT          NULL,
+    `image_path`   VARCHAR(500)  NOT NULL,
+    `link_url`     VARCHAR(500)  NULL,
+    `is_active`    TINYINT(1)    NOT NULL DEFAULT 1,
+    `sort_order`   INT           NOT NULL DEFAULT 0,
+    `created_by`   INT UNSIGNED  NULL,
+    `created_at`   DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at`   DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `deleted_at`   DATETIME      NULL,
+    KEY `idx_sliders_is_active` (`is_active`),
+    KEY `idx_sliders_sort_order` (`sort_order`),
+    CONSTRAINT `fk_sliders_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 --##############################################################
 -- SEED DATA
