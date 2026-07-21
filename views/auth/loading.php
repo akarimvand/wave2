@@ -1,0 +1,1 @@
+<?php /* Loading screen content is rendered entirely by the auth-loading layout */ ?>
