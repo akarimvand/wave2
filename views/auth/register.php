@@ -223,7 +223,7 @@
     }
 </style>
 
-<link rel="stylesheet" href="<?php echo asset('css/persian-datepicker.min.css'); ?>">
+<link rel="stylesheet" href="<?php echo asset('css/flatpickr.min.css'); ?>">
 
 <form method="POST" action="<?php echo url('auth/register'); ?>" id="registerForm" novalidate enctype="multipart/form-data">
     <?php echo csrf_field(); ?>
@@ -466,7 +466,8 @@
     </a>
 </div>
 
-<script src="<?php echo asset('js/persian-datepicker.min.js'); ?>"></script>
+<script src="<?php echo asset('js/flatpickr.min.js'); ?>"></script>
+<script src="<?php echo asset('js/flatpickr-fa.js'); ?>"></script>
 <script>
 (function() {
     var currentStep = 1;
@@ -520,24 +521,18 @@
         return true;
     }
 
-    // Datepicker init
+    // Datepicker init with flatpickr
     var datepickerInited = {};
     function initDatepicker(id) {
         if (datepickerInited[id]) return;
         var el = document.getElementById(id);
         if (!el) return;
         try {
-            $(el).pDatepicker({
-                format: 'YYYY/MM/DD',
+            flatpickr(el, {
+                locale: 'fa',
+                dateFormat: 'Y/m/d',
                 autoClose: true,
-                calendar: {
-                    persian: {
-                        locale: 'fa'
-                    }
-                },
-                toolbox: {
-                    todayButton: { enabled: true, text: { fa: 'امروز' } }
-                }
+                todayButton: 'امروز'
             });
             datepickerInited[id] = true;
         } catch(e) {}

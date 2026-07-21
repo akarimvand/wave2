@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">تاریخ تولد</label>
-                    <input type="text" name="birth_date" class="form-input jalali-date" data-datepicker placeholder="مثلاً ۱۳۷۰/۰۶/۱۵" value="<?php echo e($isEdit ? $member['birth_date'] : old('birth_date') ?? ''); ?>">
+                    <input type="text" name="birth_date" class="form-input jalali-date" data-jalali placeholder="انتخاب تاریخ" value="<?php echo e($isEdit ? $member['birth_date'] : old('birth_date') ?? ''); ?>" readonly>
                 </div>
             </div>
 
