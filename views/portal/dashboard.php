@@ -15,6 +15,111 @@
     </div>
 </div>
 
+<!-- Slider Section (Active Sliders for Members) -->
+<?php
+$sliderController = new SliderController();
+ob_start();
+$sliderController->getActiveSliders();
+$sliderJson = ob_get_clean();
+$sliderData = json_decode($sliderJson, true);
+$activeSliders = $sliderData['sliders'] ?? [];
+?>
+<?php if (!empty($activeSliders)): ?>
+<div class="card" style="margin-bottom:24px;overflow:hidden;">
+    <div class="card-body" style="padding:0;">
+        <div id="portal-slider" class="slider-container" style="position:relative;width:100%;height:280px;overflow:hidden;border-radius:12px;">
+            <?php foreach ($activeSliders as $idx => $slider): ?>
+            <div class="slider-slide" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:<?php echo $idx === 0 ? '1' : '0'; ?>;transition:opacity 0.6s ease-in-out;display:flex;align-items:flex-end;">
+                <img src="<?php echo asset($slider['image_path'] ?? '/public/uploads/sliders/default.svg'); ?>" alt="<?php echo e($slider['title']); ?>" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;z-index:1;">
+                <div style="position:relative;z-index:2;width:100%;padding:24px;background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);">
+                    <h3 style="color:#fff;font-size:1.3rem;font-weight:700;margin:0 0 8px 0;"><?php echo e($slider['title']); ?></h3>
+                    <?php if (!empty($slider['description'])): ?>
+                    <p style="color:rgba(255,255,255,0.9);font-size:0.9rem;margin:0;"><?php echo e(mb_substr($slider['description'], 0, 120)); ?><?php echo mb_strlen($slider['description']) > 120 ? '...' : ''; ?></p>
+                    <?php endif; ?>
+                    <?php if (!empty($slider['link_url'])): ?>
+                    <a href="<?php echo e($slider['link_url']); ?>" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;padding:8px 16px;background:#1877F2;color:#fff;text-decoration:none;border-radius:8px;font-size:0.85rem;font-weight:600;transition:background 0.2s;" onmouseover="this.style.background='#4293FF'" onmouseout="this.style.background='#1877F2'">بیشتر بخوانید</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+            <!-- Navigation Arrows -->
+            <button type="button" id="slider-prev" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-50%) scale(1.08)'" onmouseout="this.style.transform='translateY(-50%) scale(1)'">
+                <i class="fas fa-chevron-right" style="color:#1f2937;font-size:1rem;"></i>
+            </button>
+            <button type="button" id="slider-next" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-50%) scale(1.08)'" onmouseout="this.style.transform='translateY(-50%) scale(1)'">
+                <i class="fas fa-chevron-left" style="color:#1f2937;font-size:1rem;"></i>
+            </button>
+            <!-- Dots Indicator -->
+            <div id="slider-dots" style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:8px;">
+                <?php foreach ($activeSliders as $idx => $slider): ?>
+                <span class="slider-dot" data-index="<?php echo $idx; ?>" style="width:10px;height:10px;border-radius:50%;background:<?php echo $idx === 0 ? '#1877F2' : 'rgba(255,255,255,0.5)'; ?>;cursor:pointer;transition:all 0.3s;"></span>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+(function(){
+    var slides = document.querySelectorAll('#portal-slider .slider-slide');
+    var dots = document.querySelectorAll('.slider-dot');
+    var prevBtn = document.getElementById('slider-prev');
+    var nextBtn = document.getElementById('slider-next');
+    var current = 0;
+    var total = slides.length;
+    var autoPlayInterval;
+
+    function showSlide(idx) {
+        slides.forEach(function(slide, i) {
+            slide.style.opacity = i === idx ? '1' : '0';
+        });
+        dots.forEach(function(dot, i) {
+            dot.style.background = i === idx ? '#1877F2' : 'rgba(255,255,255,0.5)';
+        });
+        current = idx;
+    }
+
+    function nextSlide() {
+        showSlide((current + 1) % total);
+    }
+
+    function prevSlide() {
+        showSlide((current - 1 + total) % total);
+    }
+
+    // Auto-play every 5 seconds
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoPlay() {
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
+    }
+
+    // Event listeners
+    if (nextBtn) nextBtn.addEventListener('click', function() { stopAutoPlay(); nextSlide(); startAutoPlay(); });
+    if (prevBtn) prevBtn.addEventListener('click', function() { stopAutoPlay(); prevSlide(); startAutoPlay(); });
+    
+    dots.forEach(function(dot) {
+        dot.addEventListener('click', function() {
+            stopAutoPlay();
+            showSlide(parseInt(this.getAttribute('data-index')));
+            startAutoPlay();
+        });
+    });
+
+    // Pause on hover
+    var sliderContainer = document.getElementById('portal-slider');
+    if (sliderContainer) {
+        sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+        sliderContainer.addEventListener('mouseleave', startAutoPlay);
+    }
+
+    // Initialize
+    startAutoPlay();
+})();
+</script>
+<?php endif; ?>
+
 <!-- Summary Cards -->
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:24px;">
     <!-- اشتراک فعال -->
