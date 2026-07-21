@@ -53,11 +53,11 @@ class SliderController
         // Handle image upload
         $imagePath = null;
         if (!empty($_FILES['image_file']['name'])) {
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
             $maxSize = 5 * 1024 * 1024; // 5MB
 
             if (!in_array($_FILES['image_file']['type'], $allowedTypes)) {
-                setFlash('error', 'فرمت تصویر مجاز نیست. فقط JPG, PNG, GIF, WebP مجاز است.', 'error');
+                setFlash('error', 'فرمت تصویر مجاز نیست. فقط JPG, PNG, GIF, WebP, SVG مجاز است.', 'error');
                 flashOldInput();
                 redirect('admin/sliders/create');
             }
@@ -90,7 +90,7 @@ class SliderController
             db()->insert('sliders', [
                 'title' => $title,
                 'description' => $description ?: null,
-                'image_path' => $imagePath ?: '/public/uploads/sliders/default.jpg',
+                'image_path' => $imagePath ?: '/public/uploads/sliders/default.svg',
                 'link_url' => $linkUrl ?: null,
                 'is_active' => $isActive,
                 'sort_order' => $sortOrder,
@@ -159,11 +159,10 @@ class SliderController
 
         // Handle image upload
         if (!empty($_FILES['image_file']['name'])) {
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-            $maxSize = 5 * 1024 * 1024;
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
 
             if (!in_array($_FILES['image_file']['type'], $allowedTypes)) {
-                setFlash('error', 'فرمت تصویر مجاز نیست.', 'error');
+                setFlash('error', 'فرمت تصویر مجاز نیست. فقط JPG, PNG, GIF, WebP, SVG مجاز است.', 'error');
                 flashOldInput();
                 redirect('admin/sliders/' . $id . '/edit');
             }
@@ -181,17 +180,17 @@ class SliderController
 
             if (move_uploaded_file($_FILES['image_file']['tmp_name'], $targetPath)) {
                 // Delete old image
-                if (!empty($slider['image_path']) && file_exists(__DIR__ . '/../' . $slider['image_path'])) {
+                if (!empty($slider['image_path']) && file_exists(__DIR__ . '/../' . $slider['image_path']) && basename($slider['image_path']) !== 'default.svg') {
                     unlink(__DIR__ . '/../' . $slider['image_path']);
                 }
                 $data['image_path'] = '/public/uploads/sliders/' . $filename;
             }
         } elseif ($removeImage) {
             // Remove existing image
-            if (!empty($slider['image_path']) && file_exists(__DIR__ . '/../' . $slider['image_path'])) {
+            if (!empty($slider['image_path']) && file_exists(__DIR__ . '/../' . $slider['image_path']) && basename($slider['image_path']) !== 'default.svg') {
                 unlink(__DIR__ . '/../' . $slider['image_path']);
             }
-            $data['image_path'] = '/public/uploads/sliders/default.jpg';
+            $data['image_path'] = '/public/uploads/sliders/default.svg';
         }
 
         try {
