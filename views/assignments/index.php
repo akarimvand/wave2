@@ -107,7 +107,7 @@ function loadClassMembers(classId) {
     var modal = new bootstrap.Modal(document.getElementById('assignmentModal'));
     modal.show();
 
-    fetch('<?php echo url("admin/assignments/members?class_id="); ?>' + classId)
+    fetch('<?php echo url("admin/assignments/members"); ?>?class_id=' + classId)
         .then(function(r) { return r.json(); })
         .then(function(data) {
             renderModalContent(classId, data.members || []);
@@ -174,7 +174,7 @@ function searchMembers() {
 
     resultsDiv.innerHTML = '<div style="text-align:center;padding:8px;"><div class="spinner-border spinner-border-sm" style="color:#059669;"></div></div>';
 
-    fetch('<?php echo url("admin/assignments/members?class_id="); ?>' + currentClassId + '&search=' + encodeURIComponent(search))
+    fetch('<?php echo url("admin/assignments/members"); ?>?class_id=' + currentClassId + '&search=' + encodeURIComponent(search))
         .then(function(r) { return r.json(); })
         .then(function(data) {
             if (!data.members || data.members.length === 0) {
