@@ -497,10 +497,18 @@ JalaliDatepicker.prototype._bindEvents = function () {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // === Auto-initialize Jalali Datepickers ===
-    var jalaliInputs = document.querySelectorAll('[data-jalali], .jalali-date[data-datepicker], [data-datepicker].jalali-date');
+    // === Auto-initialize Flatpickr Jalali Datepickers ===
+    var jalaliInputs = document.querySelectorAll('[data-jalali], .jalali-date[data-datepicker], [data-datepicker].jalali-date, input[type="text"][data-date-format], .flatpickr-date');
     jalaliInputs.forEach(function (input) {
-        new JalaliDatepicker(input);
+        // Skip if already initialized
+        if (input._flatpickr) return;
+        
+        flatpickr(input, {
+            locale: 'fa',
+            dateFormat: 'Y/m/d',
+            allowInput: true,
+            static: true
+        });
     });
 
     // === Flash Message Auto-dismiss ===

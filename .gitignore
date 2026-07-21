@@ -1,12 +1,17 @@
 ```
-# Compressed files
-*.rar
+# Build artifacts
+public/css/*.min.css
+public/js/*.min.js
+public/js/*-fa.js
 
-# Database files
-database/*.sql
+# Cache and temporary files
+*.tmp
+*.swp
 
-# Editor/IDE files
-.vscode/
+# Environment files
+.env
+.env.local
+*.env.*
 
 # Logs
 *.log

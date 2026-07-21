@@ -8,7 +8,7 @@
     <link href="<?php echo asset('fonts/vazirmatn.css'); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo asset('css/all.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo asset('css/bootstrap.rtl.min.css'); ?>">
-    <link rel="stylesheet" href="<?php echo asset('css/persian-datepicker.min.css'); ?>">
+    <link rel="stylesheet" href="<?php echo asset('css/flatpickr.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo asset('css/style.css'); ?>">
     
     <!-- UI/UX Enhancements -->
@@ -117,7 +117,8 @@
 
     <script src="<?php echo asset('js/jquery.min.js'); ?>"></script>
     <script src="<?php echo asset('js/bootstrap.bundle.min.js'); ?>"></script>
-    <script src="<?php echo asset('js/persian-datepicker.min.js'); ?>"></script>
+    <script src="<?php echo asset('js/flatpickr.min.js'); ?>"></script>
+    <script src="<?php echo asset('js/flatpickr-fa.js'); ?>"></script>
     <script src="<?php echo asset('js/app.js'); ?>"></script>
     
     <!-- UI/UX Enhancements -->

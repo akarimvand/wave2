@@ -14,8 +14,8 @@
     <!-- Local Bootstrap RTL -->
     <link rel="stylesheet" href="<?php echo asset('css/bootstrap.rtl.min.css'); ?>">
 
-    <!-- Local Persian Datepicker -->
-    <link rel="stylesheet" href="<?php echo asset('css/persian-datepicker.min.css'); ?>">
+    <!-- Flatpickr (Modern Date Picker) -->
+    <link rel="stylesheet" href="<?php echo asset('css/flatpickr.min.css'); ?>">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="<?php echo asset('css/style.css'); ?>">
@@ -222,7 +222,8 @@
     <!-- Local Scripts -->
     <script src="<?php echo asset('js/jquery.min.js'); ?>"></script>
     <script src="<?php echo asset('js/bootstrap.bundle.min.js'); ?>"></script>
-    <script src="<?php echo asset('js/persian-datepicker.min.js'); ?>"></script>
+    <script src="<?php echo asset('js/flatpickr.min.js'); ?>"></script>
+    <script src="<?php echo asset('js/flatpickr-fa.js'); ?>"></script>
     <script src="<?php echo asset('js/app.js'); ?>"></script>
     
     <!-- UI/UX Enhancements -->
