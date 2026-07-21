@@ -661,6 +661,18 @@ elseif (routeMatch('/admin/sliders/{id}/delete', $requestUri) && $method === 'PO
     $id = getRouteParam('/admin/sliders/{id}/delete', $requestUri);
     $c->delete($id);
 }
+// API: Get active sliders for portal/coach display
+elseif ($requestUri === '/api/sliders/active' && $method === 'GET') {
+    $c = new SliderController();
+    $c->getActiveSliders();
+}
+// API: Toggle slider status
+elseif (routeMatch('/admin/sliders/{id}/toggle', $requestUri) && $method === 'POST') {
+    requireRole(['admin', 'manager']);
+    $c = new SliderController();
+    $id = getRouteParam('/admin/sliders/{id}/toggle', $requestUri);
+    $c->toggleStatus($id);
+}
 
 // --- Help Guide Management ---
 elseif ($requestUri === '/admin/help-guides' && $method === 'GET') {
