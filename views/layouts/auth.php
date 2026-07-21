@@ -444,11 +444,17 @@
             color: #0A3178;
         }
 
-        /* ===== Responsive ===== */
+        /* ===== Mobile Optimization ===== */
         @media (max-width: 480px) {
+            .login-page-wrapper {
+                padding: 1rem;
+                align-items: flex-start;
+                padding-top: 2rem;
+            }
             .login-card-fixed {
                 padding: 2rem 1.5rem;
                 border-radius: 18px;
+                max-width: 100%;
             }
             .login-card-fixed h1 { font-size: 1.15rem; }
             .login-logo-icon {
@@ -457,6 +463,120 @@
                 border-radius: 14px;
             }
             .form-row { grid-template-columns: 1fr; }
+            .login-bg-circle-1,
+            .login-bg-circle-2 {
+                display: none;
+            }
+            .login-bg-circle-3,
+            .login-bg-circle-4,
+            .login-bg-circle-5 {
+                opacity: 0.4;
+            }
+        }
+
+        /* ===== Extra Small Devices ===== */
+        @media (max-width: 360px) {
+            .login-card-fixed {
+                padding: 1.75rem 1.25rem;
+            }
+            .login-input-wrapper .form-control,
+            .form-control-plain {
+                height: 44px;
+                font-size: 0.85rem;
+            }
+            .login-btn {
+                height: 46px;
+                font-size: 0.9rem;
+            }
+            .login-logo-icon {
+                width: 50px; height: 50px;
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ===== Landscape Mode on Mobile ===== */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .login-page-wrapper {
+                align-items: center;
+                padding: 1rem;
+            }
+            .login-card-fixed {
+                padding: 1.5rem;
+                max-width: 500px;
+            }
+            .login-logo-area {
+                margin-bottom: 1rem;
+            }
+            .login-logo-icon {
+                width: 48px; height: 48px;
+                font-size: 1.3rem;
+            }
+            .form-group {
+                margin-bottom: 0.85rem;
+            }
+            .login-footer-fixed {
+                margin-top: 1rem;
+            }
+        }
+
+        /* ===== Tablet Optimization ===== */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .login-card-fixed {
+                max-width: 400px;
+            }
+        }
+
+        /* ===== Dark Mode Support ===== */
+        @media (prefers-color-scheme: dark) {
+            .login-card-fixed {
+                background: rgba(30, 41, 59, 0.88);
+                border-color: rgba(255, 255, 255, 0.1);
+            }
+            .login-card-fixed h1 {
+                color: #f3f4f6;
+            }
+            .login-subtitle-fixed,
+            .login-footer-fixed,
+            .auth-footer {
+                color: #9ca3af;
+            }
+            .form-group label {
+                color: #e5e7eb;
+            }
+            .login-input-wrapper .form-control,
+            .form-control-plain {
+                background: rgba(55, 65, 81, 0.95);
+                color: #f3f4f6;
+                border-color: rgba(75, 85, 99, 0.5);
+            }
+            .login-input-wrapper .form-control::placeholder,
+            .form-control-plain::placeholder {
+                color: #6b7280;
+            }
+            .login-input-wrapper .input-icon,
+            .password-toggle {
+                color: #6b7280;
+            }
+            .login-remember label {
+                color: #d1d5db;
+            }
+            .auth-footer a:hover {
+                color: #60a5fa;
+            }
+            .login-footer-fixed a:hover {
+                color: #60a5fa;
+            }
+        }
+
+        /* ===== High Contrast Mode ===== */
+        @media (prefers-contrast: high) {
+            .login-card-fixed {
+                border: 2px solid #000;
+            }
+            .login-input-wrapper .form-control,
+            .form-control-plain {
+                border-width: 2px;
+            }
         }
 
         /* ===== Reduced Motion ===== */
@@ -556,8 +676,163 @@
     <script src="<?php echo asset('js/jquery.min.js'); ?>"></script>
     <script src="<?php echo asset('js/bootstrap.bundle.min.js'); ?>"></script>
     <script src="<?php echo asset('js/app.js'); ?>"></script>
-    
+    <!-- Local Scripts -->
+    <script src="<?php echo asset('js/jquery.min.js'); ?>"></script>
+    <script src="<?php echo asset('js/bootstrap.bundle.min.js'); ?>"></script>
+    <script src="<?php echo asset('js/app.js'); ?>"></script>
+
     <!-- UI/UX Enhancements -->
     <script src="<?php echo asset('js/ui-ux-enhancements.js'); ?>"></script>
+
+    <!-- Enhanced Login UX Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Password visibility toggle enhancement
+            const passwordToggles = document.querySelectorAll('.password-toggle');
+            passwordToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const wrapper = this.closest('.login-input-wrapper');
+                    const input = wrapper.querySelector('input');
+                    const icon = this.querySelector('i');
+                    
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                        this.setAttribute('aria-label', 'پنهان کردن رمز عبور');
+                        input.focus();
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                        this.setAttribute('aria-label', 'نمایش رمز عبور');
+                        input.focus();
+                    }
+                });
+            });
+
+            // Form submission with enhanced loading state
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    if (submitBtn && !submitBtn.disabled) {
+                        const btnText = submitBtn.querySelector('#loginBtnText');
+                        const btnIcon = submitBtn.querySelector('#loginBtnIcon');
+                        const btnSpinner = submitBtn.querySelector('#loginBtnSpinner');
+                        
+                        if (btnText) btnText.textContent = 'در حال ورود...';
+                        if (btnIcon) btnIcon.style.display = 'none';
+                        if (btnSpinner) btnSpinner.style.display = 'inline-block';
+                        
+                        submitBtn.disabled = true;
+                        submitBtn.setAttribute('aria-busy', 'true');
+                    }
+                });
+            }
+
+            // Input focus animations
+            const inputs = document.querySelectorAll('.login-input-wrapper input, .form-control-plain');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+
+            // Auto-focus first empty field
+            const usernameField = document.getElementById('username');
+            const passwordField = document.getElementById('login-password');
+            
+            if (usernameField && !usernameField.value) {
+                setTimeout(() => usernameField.focus(), 300);
+            } else if (passwordField && !passwordField.value) {
+                setTimeout(() => passwordField.focus(), 300);
+            }
+
+            // Keyboard accessibility - Enter key on password field
+            if (passwordField) {
+                passwordField.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        loginForm.submit();
+                    }
+                });
+            }
+
+            // Touch-friendly enhancements for mobile
+            if ('ontouchstart' in window) {
+                document.body.classList.add('touch-device');
+                
+                // Add touch feedback to buttons
+                const buttons = document.querySelectorAll('.login-btn, .password-toggle');
+                buttons.forEach(btn => {
+                    btn.addEventListener('touchstart', function() {
+                        this.style.transform = 'scale(0.98)';
+                    }, { passive: true });
+                    
+                    btn.addEventListener('touchend', function() {
+                        this.style.transform = '';
+                    }, { passive: true });
+                });
+            }
+
+            // Prevent zoom on double-tap for iOS
+            const metaViewport = document.querySelector('meta[name="viewport"]');
+            if (metaViewport && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+            }
+
+            // Error message auto-dismiss after 5 seconds
+            const errorMessages = document.querySelectorAll('.login-error-fixed');
+            errorMessages.forEach(msg => {
+                setTimeout(() => {
+                    msg.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    msg.style.opacity = '0';
+                    msg.style.transform = 'translateY(-10px)';
+                    setTimeout(() => msg.remove(), 300);
+                }, 5000);
+            });
+
+            // Form validation feedback
+            if (loginForm) {
+                const formInputs = loginForm.querySelectorAll('input[required]');
+                formInputs.forEach(input => {
+                    input.addEventListener('invalid', function(e) {
+                        e.preventDefault();
+                        this.classList.add('is-invalid');
+                        this.setCustomValidity('');
+                        
+                        // Show validation message
+                        const wrapper = this.closest('.form-group');
+                        if (wrapper) {
+                            const existingMsg = wrapper.querySelector('.invalid-feedback');
+                            if (!existingMsg) {
+                                const feedback = document.createElement('div');
+                                feedback.className = 'invalid-feedback';
+                                feedback.textContent = this.validationMessage;
+                                feedback.style.color = '#ef4444';
+                                feedback.style.fontSize = '0.75rem';
+                                feedback.style.marginTop = '0.25rem';
+                                wrapper.appendChild(feedback);
+                            }
+                        }
+                    });
+                    
+                    input.addEventListener('input', function() {
+                        this.classList.remove('is-invalid');
+                        const wrapper = this.closest('.form-group');
+                        if (wrapper) {
+                            const feedback = wrapper.querySelector('.invalid-feedback');
+                            if (feedback) feedback.remove();
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
