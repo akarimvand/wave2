@@ -1,18 +1,1 @@
-```
-# Build artifacts
-public/css/*.min.css
-public/js/*.min.js
-public/js/*-fa.js
-
-# Cache and temporary files
-*.tmp
-*.swp
-
-# Environment files
-.env
-.env.local
-*.env.*
-
-# Logs
-*.log
-```
+Nothing should be ignored based on the provided file changes, as they only include PHP source files (.php) which are legitimate code files that should be tracked in version control.

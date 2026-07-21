@@ -10,11 +10,11 @@
 <form method="GET" action="<?php echo url('admin/reports'); ?>" class="search-bar">
     <div class="search-input-group">
         <i class="fas fa-calendar-alt"></i>
-        <input type="text" name="date_from" class="form-input jalali-date" data-datepicker value="<?php echo e($filters['date_from'] ?? $filters['from_date'] ?? ''); ?>" placeholder="از تاریخ...">
+        <input type="text" name="date_from" class="form-input jalali-date" data-jalali value="<?php echo e($filters['date_from'] ?? $filters['from_date'] ?? ''); ?>" placeholder="از تاریخ..." readonly>
     </div>
     <div class="search-input-group">
         <i class="fas fa-calendar-alt"></i>
-        <input type="text" name="date_to" class="form-input jalali-date" data-datepicker value="<?php echo e($filters['date_to'] ?? $filters['to_date'] ?? ''); ?>" placeholder="تا تاریخ...">
+        <input type="text" name="date_to" class="form-input jalali-date" data-jalali value="<?php echo e($filters['date_to'] ?? $filters['to_date'] ?? ''); ?>" placeholder="تا تاریخ..." readonly>
     </div>
     <select name="report_type" class="search-filter">
         <option value="members" <?php echo (($reportType ?? $filters['report_type'] ?? '') === 'members') ? 'selected' : ''; ?>>اعضا</option>

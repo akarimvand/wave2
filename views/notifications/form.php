@@ -57,7 +57,7 @@
                     تاریخ ارسال
                     <span style="font-size:0.8rem;color:#9CA3AF;font-weight:normal;">(اختیاری - در صورت خالی بودن بلافاصله ارسال می‌شود)</span>
                 </label>
-                <input type="text" name="send_at" class="form-input jalali-date" data-datepicker value="<?php echo e(old('send_at') ?? ''); ?>" placeholder="انتخاب تاریخ ارسال">
+                <input type="text" name="send_at" class="form-input jalali-date" data-jalali value="<?php echo e(old('send_at') ?? ''); ?>" placeholder="انتخاب تاریخ ارسال" readonly>
             </div>
 
             <div class="form-group" style="display:flex;align-items:center;gap:8px;margin-top:8px;">
