@@ -46,7 +46,7 @@
 
             <div class="form-group">
                 <label class="form-label">تاریخ پرداخت <span class="required">*</span></label>
-                <input type="text" name="payment_date" class="form-input jalali-date" data-datepicker required value="<?php echo e($payment['payment_date'] ?? old('payment_date') ?? ''); ?>" placeholder="انتخاب تاریخ">
+                <input type="text" name="payment_date" class="form-input jalali-date" data-jalali required value="<?php echo e($payment['payment_date'] ?? old('payment_date') ?? ''); ?>" placeholder="انتخاب تاریخ" readonly>
             </div>
 
             <div class="form-group">

@@ -74,7 +74,7 @@
                         <i class="fas fa-calendar-alt" style="margin-left:4px;color:#1B4F8A;"></i>
                         تاریخ استخدام
                     </label>
-                    <input type="text" name="hire_date" class="form-input jalali-date" data-datepicker placeholder="انتخاب تاریخ" value="<?php echo $coach['hire_date'] ? e(formatDate($coach['hire_date'])) : e(old('hire_date') ?? ''); ?>">
+                    <input type="text" name="hire_date" class="form-input jalali-date" data-jalali placeholder="انتخاب تاریخ" value="<?php echo $coach['hire_date'] ? e(formatDate($coach['hire_date'])) : e(old('hire_date') ?? ''); ?>" readonly>
                 </div>
                 <div class="form-group" style="display:flex;align-items:flex-end;padding-bottom:4px;">
                     <label class="form-label" style="display:flex;align-items:center;gap:8px;cursor:pointer;margin:0;">

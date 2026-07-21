@@ -30,7 +30,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">تاریخ رویداد <span class="required">*</span></label>
-                    <input type="text" name="event_date" class="form-input jalali-date" data-datepicker required value="<?php echo e($event['event_date'] ?? old('event_date') ?? ''); ?>">
+                    <input type="text" name="event_date" class="form-input jalali-date" data-jalali required value="<?php echo e($event['event_date'] ?? old('event_date') ?? ''); ?>" placeholder="انتخاب تاریخ" readonly>
                 </div>
                 <div class="form-group">
                     <label class="form-label">مکان</label>
