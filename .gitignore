@@ -23,26 +23,42 @@ venv/
 dist/
 build/
 target/
-.coverage
-coverage/
-htmlcov/
+.gradle/
 
-# Editors and IDEs
+# Python specific
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.so
+.coverage
+htmlcov/
+.mypy_cache/
+.pytest_cache/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Editors
 .vscode/
 .idea/
 *.swp
 *.swo
-*.tmp
 
 # System files
 .DS_Store
 Thumbs.db
-
-# Logs
-*.log
-
-# Cache directories
-.mypy_cache/
-.pytest_cache/
-.gradle/
 ```
+
+Wait, I need to reconsider. Looking at the file changes again:
+
+### Added files:
+['INSTALLATION_GUIDE.md', 'controllers/HelpGuideController.php', 'controllers/SliderController.php', 'database/updates3.sql', 'routes.php.patch', 'views/help-guides/form.php', 'views/help-guides/index.php', 'views/members/slider-component.php', 'views/sliders/form.php', 'views/sliders/index.php']
+
+These are all source code files (.php, .sql, .patch, .md) - no build artifacts, dependencies, or temp files. According to rule #6, if the change list contains ONLY source or config files and NO build artifacts, dependencies, or temp files, I should output an EMPTY .gitignore.
+
+(empty — output nothing)

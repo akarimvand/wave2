@@ -1,0 +1,20 @@
+// Add these routes to your routes.php file
+
+// Slider routes (admin only)
+Route::get('/admin/sliders', [SliderController::class, 'index']);
+Route::get('/admin/sliders/create', [SliderController::class, 'create']);
+Route::post('/admin/sliders/store', [SliderController::class, 'store']);
+Route::get('/admin/sliders/{id}/edit', [SliderController::class, 'edit']);
+Route::post('/admin/sliders/{id}/update', [SliderController::class, 'update']);
+Route::post('/admin/sliders/{id}/delete', [SliderController::class, 'delete']);
+Route::post('/admin/sliders/{id}/toggle', [SliderController::class, 'toggleStatus']);
+Route::get('/api/sliders/active', [SliderController::class, 'getActiveSliders']);
+
+// Help Guide routes (admin only)
+Route::get('/admin/help-guides', [HelpGuideController::class, 'index']);
+Route::get('/admin/help-guides/create', [HelpGuideController::class, 'create']);
+Route::post('/admin/help-guides/store', [HelpGuideController::class, 'store']);
+Route::get('/admin/help-guides/{id}/edit', [HelpGuideController::class, 'edit']);
+Route::post('/admin/help-guides/{id}/update', [HelpGuideController::class, 'update']);
+Route::post('/admin/help-guides/{id}/delete', [HelpGuideController::class, 'delete']);
+Route::get('/api/help-guide', [HelpGuideController::class, 'getGuide']);
