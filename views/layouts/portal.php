@@ -19,6 +19,9 @@
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="<?php echo asset('css/style.css'); ?>">
+    
+    <!-- UI/UX Enhancements -->
+    <link rel="stylesheet" href="<?php echo asset('css/ui-ux-enhancements.css'); ?>">
 </head>
 <body>
     <div class="app-layout">
@@ -172,6 +175,9 @@
     <script src="<?php echo asset('js/bootstrap.bundle.min.js'); ?>"></script>
     <script src="<?php echo asset('js/persian-datepicker.min.js'); ?>"></script>
     <script src="<?php echo asset('js/app.js'); ?>"></script>
+    
+    <!-- UI/UX Enhancements -->
+    <script src="<?php echo asset('js/ui-ux-enhancements.js'); ?>"></script>
 
     <script>
     (function(){
