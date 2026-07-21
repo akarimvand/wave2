@@ -76,6 +76,11 @@
 </div>
 <?php endif; ?>
 
+<!-- Slider Component -->
+<?php if (!empty($sliders) && count($sliders) > 0): ?>
+    <?php include __DIR__ . '/slider-component.php'; ?>
+<?php endif; ?>
+
 <div class="page-header-row">
     <div class="page-header">
         <h2 class="page-title">مدیریت اعضا</h2>
