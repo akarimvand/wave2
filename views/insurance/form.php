@@ -46,11 +46,11 @@
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label"><i class="fas fa-calendar-alt" style="margin-left:6px;"></i> تاریخ شروع <span class="required">*</span></label>
-                    <input type="text" name="start_date" class="form-input jalali-date" data-datepicker required placeholder="انتخاب تاریخ" value="<?php echo e($insurance['start_date'] ?? old('start_date') ?? ''); ?>" readonly>
+                    <input type="text" name="start_date" class="form-input jalali-date" data-jalali required placeholder="انتخاب تاریخ" value="<?php echo e($insurance['start_date'] ?? old('start_date') ?? ''); ?>" readonly>
                 </div>
                 <div class="form-group">
                     <label class="form-label"><i class="fas fa-calendar-check" style="margin-left:6px;"></i> تاریخ پایان <span class="required">*</span></label>
-                    <input type="text" name="end_date" class="form-input jalali-date" data-datepicker required placeholder="انتخاب تاریخ" value="<?php echo e($insurance['end_date'] ?? old('end_date') ?? ''); ?>" readonly>
+                    <input type="text" name="end_date" class="form-input jalali-date" data-jalali required placeholder="انتخاب تاریخ" value="<?php echo e($insurance['end_date'] ?? old('end_date') ?? ''); ?>" readonly>
                 </div>
             </div>
 
