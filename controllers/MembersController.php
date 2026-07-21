@@ -65,6 +65,7 @@ class MembersController
             'perPage' => $perPage,
             'search' => $search,
             'filters' => ['status' => $statusFilter],
+            'sliders' => db()->getAll("SELECT * FROM sliders WHERE is_active = 1 AND deleted_at IS NULL ORDER BY sort_order"),
         ]);
     }
 

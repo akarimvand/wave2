@@ -627,6 +627,76 @@ elseif ($requestUri === '/upload' && $method === 'POST') {
     $c = new UploadController();
     $c->upload();
 }
+// --- Slider Management ---
+elseif ($requestUri === '/admin/sliders' && $method === 'GET') {
+    requireRole(['admin', 'manager']);
+    $c = new SliderController();
+    $c->index();
+}
+elseif ($requestUri === '/admin/sliders/create' && $method === 'GET') {
+    requireRole(['admin', 'manager']);
+    $c = new SliderController();
+    $c->create();
+}
+elseif ($requestUri === '/admin/sliders/store' && $method === 'POST') {
+    requireRole(['admin', 'manager']);
+    $c = new SliderController();
+    $c->store();
+}
+elseif (routeMatch('/admin/sliders/{id}/edit', $requestUri) && $method === 'GET') {
+    requireRole(['admin', 'manager']);
+    $c = new SliderController();
+    $id = getRouteParam('/admin/sliders/{id}/edit', $requestUri);
+    $c->edit($id);
+}
+elseif (routeMatch('/admin/sliders/{id}/update', $requestUri) && $method === 'POST') {
+    requireRole(['admin', 'manager']);
+    $c = new SliderController();
+    $id = getRouteParam('/admin/sliders/{id}/update', $requestUri);
+    $c->update($id);
+}
+elseif (routeMatch('/admin/sliders/{id}/delete', $requestUri) && $method === 'POST') {
+    requireRole(['admin', 'manager']);
+    $c = new SliderController();
+    $id = getRouteParam('/admin/sliders/{id}/delete', $requestUri);
+    $c->delete($id);
+}
+
+// --- Help Guide Management ---
+elseif ($requestUri === '/admin/help-guides' && $method === 'GET') {
+    requireRole(['admin', 'manager']);
+    $c = new HelpGuideController();
+    $c->index();
+}
+elseif ($requestUri === '/admin/help-guides/create' && $method === 'GET') {
+    requireRole(['admin', 'manager']);
+    $c = new HelpGuideController();
+    $c->create();
+}
+elseif ($requestUri === '/admin/help-guides/store' && $method === 'POST') {
+    requireRole(['admin', 'manager']);
+    $c = new HelpGuideController();
+    $c->store();
+}
+elseif (routeMatch('/admin/help-guides/{id}/edit', $requestUri) && $method === 'GET') {
+    requireRole(['admin', 'manager']);
+    $c = new HelpGuideController();
+    $id = getRouteParam('/admin/help-guides/{id}/edit', $requestUri);
+    $c->edit($id);
+}
+elseif (routeMatch('/admin/help-guides/{id}/update', $requestUri) && $method === 'POST') {
+    requireRole(['admin', 'manager']);
+    $c = new HelpGuideController();
+    $id = getRouteParam('/admin/help-guides/{id}/update', $requestUri);
+    $c->update($id);
+}
+elseif (routeMatch('/admin/help-guides/{id}/delete', $requestUri) && $method === 'POST') {
+    requireRole(['admin', 'manager']);
+    $c = new HelpGuideController();
+    $id = getRouteParam('/admin/help-guides/{id}/delete', $requestUri);
+    $c->delete($id);
+}
+
 // 404
 else {
     http_response_code(404);
