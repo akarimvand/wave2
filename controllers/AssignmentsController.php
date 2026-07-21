@@ -33,6 +33,19 @@ class AssignmentsController
         $search = trim($_GET['search'] ?? '');
         $classId = (int) ($_GET['class_id'] ?? 0);
 
+        // First, get currently registered members in this class
+        $registeredMemberIds = [];
+        if ($classId > 0) {
+            $registered = db()->getAll(
+                "SELECT member_id FROM class_registrations 
+                 WHERE class_id = ? AND status = 'active' AND deleted_at IS NULL",
+                [$classId]
+            );
+            foreach ($registered as $r) {
+                $registeredMemberIds[] = $r['member_id'];
+            }
+        }
+
         $sql = "SELECT m.id, m.first_name, m.last_name, m.phone, m.national_code,
                        mp.name as plan_name, mm.end_date as membership_end
                 FROM members m
@@ -45,12 +58,10 @@ class AssignmentsController
         $params = [];
 
         // Exclude members already registered in this class
-        if ($classId > 0) {
-            $sql .= " AND m.id NOT IN (
-                SELECT cr.member_id FROM class_registrations cr
-                WHERE cr.class_id = ? AND cr.status = 'active' AND cr.deleted_at IS NULL
-            )";
-            $params[] = $classId;
+        if (!empty($registeredMemberIds)) {
+            $placeholders = implode(',', array_fill(0, count($registeredMemberIds), '?'));
+            $sql .= " AND m.id NOT IN ($placeholders)";
+            $params = array_merge($params, $registeredMemberIds);
         }
 
         if (!empty($search)) {
